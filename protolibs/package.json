@@ -23,5 +23,8 @@
   "dependencies": {
     "@maxedwards/stopwatch": "0.0.1",
     "terser": "^5.5.1"
+  },
+  "devDependencies": {
+    "node-fetch": "^2.6.1"
   }
 }
