@@ -89,6 +89,7 @@ module.exports=function(optsGlobal){
             lists[lab][cat]=lists[lab][cat]||[]; 
             lists[lab][cat].push(id);
             Function[id]=mreq(path,core);
+            console.log('added Function',id,'core=',core)
             Function.$protolibs.push(id);
             added++;
             //
