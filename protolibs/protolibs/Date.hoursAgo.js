@@ -1,0 +1,1 @@
+module.exports=function(NOW){return ((NOW||new Date()) - this)/Date.msPerHour}

@@ -4,7 +4,7 @@
   "description": "protolibs.js by Max Edwards, a modular on-demand library of helper functions & classes, shareable between server and browser",
   "main": "protolibs.js",
   "scripts": {
-    "test": "node --test protolibs.js"
+    "test": "node prototest.js"
   },
   "repository": {
     "type": "git",

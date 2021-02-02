@@ -1,0 +1,1 @@
+module.exports=function(){return Buffer.from(this.toString()).toString('base64');};
