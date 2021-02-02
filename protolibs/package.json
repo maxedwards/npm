@@ -19,5 +19,9 @@
   "bugs": {
     "url": "https://github.com/maxedwards/npm/issues"
   },
-  "homepage": "https://github.com/maxedwards/npm#readme"
+  "homepage": "https://github.com/maxedwards/npm#readme",
+  "dependencies": {
+    "@maxedwards/stopwatch": "0.0.1",
+    "terser": "^5.5.1"
+  }
 }
