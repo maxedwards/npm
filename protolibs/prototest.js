@@ -12,9 +12,9 @@ cmd(`new Date().$format('dd mmm hh:mm:ss');`);
 
 cmd('protolibs.testlibs()');
 
-if(0)cmd(
-`"https://food.maxedwards.co.uk/daydata.json?diary=Kaia&recent=183"
-	.$getJSON({username:'max',password:'chipshop'})
+if(1)cmd(
+`"https://freeapi.com/api.json"
+	.$getJSON({username:'',password:''})
 	.then(console.log)
 	.catch(console.error);`);
 if(0)cmd(

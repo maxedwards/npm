@@ -87,7 +87,7 @@ module.exports=function(optsGlobal){
             lists.core["Function."].push(id); //lists[t].sort();
             added++;
             //Function[id]=require(path);
-            Function[id]=mreq(path,true);
+            Function[id]=mreq(path,false);
             //console.log('**ADDED CLASS',id)
             Function.$protolibs.push(id);
         }
