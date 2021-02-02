@@ -81,7 +81,20 @@ module.exports=function(optsGlobal){
             added++;
         }
 
-        function addClass(t,id,f){
+        function addClass(t,id,f,core){
+            //core=core&&isLive;//otherwise lazy load with cache clearing
+            let path=p.join(fromDir,f), lab=`${core?'core':'lazy'}`;
+            lists[lab]=lists[lab]||{};
+            let cat=`Function.`;
+            lists[lab][cat]=lists[lab][cat]||[]; 
+            lists[lab][cat].push(id);
+            Function[id]=mreq(path,core);
+            Function.$protolibs.push(id);
+            added++;
+            //
+            return;
+            // OLD:
+            /*
             let path=p.join(fromDir,f);
             lists.core["Function."]=lists.core.Function||[];
             lists.core["Function."].push(id); //lists[t].sort();
@@ -90,6 +103,7 @@ module.exports=function(optsGlobal){
             Function[id]=mreq(path,false);
             //console.log('**ADDED CLASS',id)
             Function.$protolibs.push(id);
+            */
         }
         
         try{
@@ -99,7 +113,7 @@ module.exports=function(optsGlobal){
                 if(p.length==3){ 
                     let t=p[0]; let core=corelibs[t]&&corelibs[t].indexOf(p[1])>=0;
                     if(types.indexOf(t)>=0) return addProto(t,prefix+`${p[1]}`,f,core);
-                    if(t=='Class') return addClass(t,prefix+`${p[1]}`,f);
+                    if(t=='Class') return addClass(t,prefix+`${p[1]}`,f,core);
                 }
                 if(p[0]!='_static')if(optsGlobal.verbose)console.log('protolibs.js skipping',f);
             });
