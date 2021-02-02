@@ -1,7 +1,7 @@
 const types=['Object','Date','Array','String','Number','Boolean'];
 const alltypes=types.concat(['Class']);
 const corelibs=require('./protolibs/__corelibs.json');
-const stopwatch=require('./stopwatch.js');
+const stopwatch=require('@maxedwards/stopwatch');
 const fs=require('fs'), p=require('path'), isLive=process.env.NODE_ENV=='production';
 
 const prefix='$';
