@@ -21,16 +21,16 @@ if(0)cmd(
 	`"https://food.maxedwards.co.uk/daydata.json?diary=Kaia&recent=183"
 		.$getJSON({
 			post:{some:'data'},
-			username:'max',
-			password:'chipshop'
+			username:'',
+			password:''
 		})
 		.then(console.log)
 		.catch(console.error);`);
 if(0)cmd(
 	`({some:'data'}).$postJSON({
 			url:"https://food.maxedwards.co.uk/daydata.json?diary=Kaia&recent=183",
-			username:'max',
-			password:'chipshop'
+			username:'',
+			password:''
 		})
 		.then(console.log)
 		.catch(console.error);`);
