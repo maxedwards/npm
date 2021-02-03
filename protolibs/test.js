@@ -7,7 +7,7 @@ function cmd(c){
 	}
 }
 
-cmd(`global.protolibs = require('./protolibs.js')();`);
+cmd(`global.protolibs = require('./protolibs.js');`);
 cmd(`new Date().$format('dd mmm hh:mm:ss');`);
 
 cmd('protolibs.testlibs()');
