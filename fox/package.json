@@ -1,0 +1,26 @@
+{
+  "name": "@maxedwards/fox",
+  "version": "0.0.1",
+  "description": "fox.js by Max Edwards",
+  "main": "FOX.js",
+  "scripts": {
+    "test": "echo no tests defined"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maxedwards/npm.git"
+  },
+  "keywords": [
+    "stopwatch"
+  ],
+  "author": "Max Edwards M.Eng.",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/maxedwards/npm/issues"
+  },
+  "homepage": "https://github.com/maxedwards/npm#readme",
+  "dependencies": {
+    "@maxedwards/ensure-folder": "0.0.1",
+    "@maxedwards/protolibs": "0.0.10"
+  }
+}
