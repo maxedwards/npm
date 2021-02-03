@@ -351,7 +351,11 @@ module.exports=function(optsGlobal){
         return client;
     }
 
+    protolibs.addDir=function(dir){
+        //TO DO
+    }
 
     console.log('protolibs.js activated',lists);
     return protolibs;
+    
 }
