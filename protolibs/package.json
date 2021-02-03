@@ -1,6 +1,6 @@
 {
   "name": "@maxedwards/protolibs",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "protolibs.js by Max Edwards, a modular on-demand library of helper functions & classes, shareable between server and browser",
   "main": "protolibs.js",
   "scripts": {
@@ -22,7 +22,7 @@
   "homepage": "https://github.com/maxedwards/npm#readme",
   "dependencies": {
     "@maxedwards/stopwatch": "0.0.1",
-    "terser": "^5.5.1"
+    "terser": "4.6.3"
   },
   "devDependencies": {
     "node-fetch": "^2.6.1"

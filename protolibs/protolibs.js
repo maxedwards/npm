@@ -6,7 +6,7 @@ const fs=require('fs'), p=require('path'), isLive=process.env.NODE_ENV=='product
 
 const prefix='$';
 
-const { minify } = require('terser');
+const { minify } = require('terser'); // terser 4.6.3 provides SYNC minify, latest version is ASYNC!
 const lists={core:{}};
 
 module.exports=function(optsGlobal){
