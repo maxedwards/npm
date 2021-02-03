@@ -1,0 +1,23 @@
+{
+    "name": "@maxedwards/ensure-folder",
+    "version": "0.0.1",
+    "description": "ensure-folder.js by Max Edwards",
+    "main": "ensure-folder.js",
+    "scripts": {
+      "test": "echo no tests defined"
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/maxedwards/npm.git"
+    },
+    "keywords": [
+      "stopwatch"
+    ],
+    "author": "Max Edwards M.Eng.",
+    "license": "ISC",
+    "bugs": {
+      "url": "https://github.com/maxedwards/npm/issues"
+    },
+    "homepage": "https://github.com/maxedwards/npm#readme"
+  }
+  
