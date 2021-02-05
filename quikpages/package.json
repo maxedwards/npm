@@ -1,0 +1,25 @@
+{
+  "name": "@maxedwards/quikpages",
+  "version": "0.0.1",
+  "description": "quikpages.js by Max Edwards",
+  "main": "quikpages.js",
+  "scripts": {
+    "test": "echo no tests defined"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maxedwards/npm.git"
+  },
+  "keywords": [
+    "quikpages"
+  ],
+  "author": "Max Edwards M.Eng.",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/maxedwards/npm/issues"
+  },
+  "homepage": "https://github.com/maxedwards/npm#readme",
+  "dependencies": {
+    "@maxedwards/fox": "^0.0.1"
+  }
+}
