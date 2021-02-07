@@ -28,7 +28,7 @@ function mreq(path,core){
     if(core){
         let F=require(path);
         if(typeof F!='function')throw 'protolibs.js: NOT A FUNCTION:'+path;
-        console.log('..LOADED CORE',path);
+        if(optsGlobal.verbose)console.log('..LOADED CORE',path);
         return F
     }
     return function(){
@@ -48,7 +48,7 @@ function mreq(path,core){
 
 protolibs.initServerside=function(fromDir){
     if(!fromDir || typeof fromDir != 'string') fromDir=p.join(__dirname,'protolibs');
-    if(optsGlobal.verbose)console.log('protolibs.js SCANNING',fromDir);
+    if(true || optsGlobal.verbose)console.log('protolibs.js SCANNING',fromDir);
     let added=0;
     
     let spa;
@@ -175,22 +175,27 @@ function clientFirst(path){
 protolibs.clientCache={Compiled:{}};
 
 protolibs.compileClient=function(opts){
-    let sw=stopwatch('COMPILE CLIENT');
-    console.log('\nprotolibs.js: compiling client subset:');
+    
     opts=opts||{};
     
+    //opts.verbose=true; // for now
+
     if(typeof opts.extradirs=='string') opts.extradirs=opts.extradirs.split(',')
     
     let clientDirs=alldirs;
     if(Array.isArray(opts.extradirs)) clientDirs=clientDirs.concat(opts.extradirs);
 
     let client,compilekey=JSON.stringify(opts);
-    if(client=protolibs.clientCache.Compiled[compilekey]){
-        console.log('..COMPILE CACHE HIT',client.length,'bytes',sw.report());
+    if((!opts.nocache) && (client=protolibs.clientCache.Compiled[compilekey])){
+        if(true||opts.verbose)console.log('protolibs client compile cache hit:',client.length,'bytes');
         return client;
     }
 
+    let sw=stopwatch('COMPILE CLIENT');
+
     let doCache=!opts.nocache && (isLive||opts.forceCache);
+
+    if(opts.verbose)console.log('\nprotolibs.js: compiling client subset:');
 
     client=``;
     let keys, fail=[], protoid, lib, f, id, path, spa, ei, frag, raw, ckey, incf;
@@ -202,7 +207,7 @@ protolibs.compileClient=function(opts){
     });
 
     function doPass(){
-        console.log('PASS',pass++);
+        if(opts.verbose)console.log('PASS',pass++);
         complete=true; // gets nullified if additional libs are identified
         alltypes.forEach(t=>{
             if((keys=Array.from(toadd[t])).length==0)return;// console.log('..no',t,'libs to add');
@@ -223,11 +228,11 @@ protolibs.compileClient=function(opts){
                     raw=protolibs.clientCache[t][spa];
                     if(typeof raw=='string'){
                         client += `\n${raw}`;
-                        console.log('..cache hit',t,'.',spa);
+                        if(opts.verbose)console.log('..cache hit',t,'.',spa);
                     }else
                         try{
                             spa=require.resolve(spa);
-                            console.log('..including static file',spa);
+                            if(opts.verbose)console.log('..including static file',spa);
                             raw=fs.readFileSync(spa).toString();
                             if(!opts.nozip){
                                 raw=protolibs.shrinkJS(raw);
@@ -238,13 +243,13 @@ protolibs.compileClient=function(opts){
                 });
 
             frag='';
-            console.log('alldirs:',alldirs);
+            if(opts.verbose)console.log('alldirs:',alldirs);
             keys.forEach(k=>{
                 f=`${t}.${k}.js`;
 
                 if(typeof protolibs.clientCache[t][prefix+k]=='string'){
                     // cacheing of individual functions is disabled, only final-compile caching is active. This simplifies the auto-include functionality as otherwise would need to keep a log of which auto-includes to add for each single file cached, since the cached files are already compressed.
-                    console.log('..cache hit',t,'.',prefix,k);
+                    if(opts.verbose)console.log('..cache hit',t,'.',prefix,k);
                     frag+=`\n${protolibs.clientCache[t][prefix+k]}`;
                 }else
                     try{
@@ -253,9 +258,9 @@ protolibs.compileClient=function(opts){
                             path=p.join(clientDirs[ei],f); ei++;
                             try{raw=clientFirst(path);
                                 ei=999999;
-                                console.log('..FOUND:',path);
+                                if(opts.verbose)console.log('..FOUND:',path);
                             } catch(e2){
-                                console.log('..not found:',path);
+                                if(opts.verbose)console.log('..not found:',path);
                                 //throw new Error('..FAIL: no such lib in ANY folder: '+f);
                             }
                         }
@@ -269,12 +274,12 @@ protolibs.compileClient=function(opts){
                                 if(wlib[1].indexOf(prefix)==0)wlib[1]=wlib[1].slice(prefix.length);
                                 //console.log('..WITH:',wlib[0],'.',prefix,wlib[1]);
                                 if(tried[wlib[0]]&&tried[wlib[0]].indexOf(wlib[1])>=0){
-                                    console.log('..already tried',wlib[0],'.',prefix,wlib[1]);
+                                    if(opts.verbose)console.log('..already tried',wlib[0],'.',prefix,wlib[1]);
                                 }else{
                                     toadd[wlib[0]]=toadd[wlib[0]]||[];
                                     toadd[wlib[0]].push(wlib[1]);
                                     complete=false; // triggers extra pass, however it could actually happen during current pass
-                                    console.log('..SCHEDULED WITH:',wlib[0],'.',prefix,wlib[1]);
+                                    if(opts.verbose)console.log('..SCHEDULED WITH:',wlib[0],'.',prefix,wlib[1]);
                                 }
                             });
                         });
@@ -296,9 +301,9 @@ protolibs.compileClient=function(opts){
                             if(doCache)protolibs.clientCache[t][prefix+k]=lib;
                         }
                         frag+=`\n${lib}`;
-                        console.log('..added',t,'.',prefix,k);
+                        if(opts.verbose)console.log('..added',t,'.',prefix,k);
                     }catch(e){
-                        console.error(e.message)
+                        if(opts.verbose)console.error(e.message)
                         fail.push(f);
                     }
                 
@@ -317,13 +322,13 @@ protolibs.compileClient=function(opts){
 
         //console.log('toadd',toadd);
 
-        console.log('----END OF PASS---');
+        if(opts.verbose)console.log('----END OF PASS---');
     }
 
     while(!complete)  doPass();
 
-    console.log('TRIED',tried);
-    if(fail.length)console.log('FAILED',fail);
+    if(opts.verbose)console.log('TRIED',tried);
+    if(fail.length)if(opts.verbose)console.log('FAILED',fail);
 
     client = `//protolibs.js ${new Date().toISOString()}
     ((module,X)=>{${client}${fail.length&&!isLive?`
@@ -340,7 +345,7 @@ protolibs.compileClient=function(opts){
     else
         protolibs.clientCache.Compiled[compilekey]=client;
 
-    console.log(client.length,'byte client generated');
+    console.log('protolibs:',client.length,'byte client freshly generated');
     console.log(sw.report());
     return client;
 }
@@ -350,9 +355,15 @@ protolibs.addDir=function(dir){
     if(dir.length>0 && dir.indexOf('/')<0)dir=p.join(__dirname,'protolibs',dir);
     alldirs.push(dir);
     protolibs.initServerside(dir);
-    console.log('protolibs has added folder',dir, '- available libraries are now:',lists);
+    if(optsGlobal.verbose){
+        console.log('protolibs has added folder',dir);
+        protolibs.report();
+    }
 }
 
+protolibs.report=function(){
+    console.log('protolibs report:\n','..alldirs=',alldirs,'\n','..all libraries=',lists);
+}
 
 
 protolibs.addDir(p.join(__dirname,'protolibs')); 
