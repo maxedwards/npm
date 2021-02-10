@@ -5,6 +5,8 @@
 	//Number._safeBraces.ON('niceBytes')
 	require('@maxedwards/protolibs');
 
+	const isDev=process.env.NODE_ENV!='production';
+
 	//const EF=require('./ensureFolder.js');
 	const EF=require('@maxedwards/ensure-folder');
 
@@ -94,7 +96,7 @@
 				rawfile = fs.readFileSync(path+'.gz');
 				try{
 					rawfile = zlib.gunzipSync(rawfile).toString();
-					console.log('FOX.js: gunzipped ',path+'.gz');
+					isDev&&console.log('FOX.js: gunzipped ',path+'.gz');
 				} catch (e) {
 					console.log('FOX.js: gunzip FAIL on ',path+'.gz',':',e);
 					rawfile='CORRUPTED ZIP gives CORRUPTED JSON. '+e.toString()
@@ -115,7 +117,7 @@
 			}
 			rawfile=null;
 			//console.trace();
-			console.log('FOX.js: LOADED',lastSize.$niceBytes(),pathNice,arcrum);
+			isDev&&console.log('FOX.js: LOADED',lastSize.$niceBytes(),pathNice,arcrum);
 			if(!X)return;
 			X.lastSize=lastSize; X.lastMod=lastMod; X.lastFs=lastFs; X.V=data; X.gzip=isgzip;
 		}
@@ -338,10 +340,10 @@
 					//return;
 					// should kill all top-level keys if V is an object
 					if(X.V.constructor === Object){
-						console.log('FOX.js: UNLOAD',pathNice,Object.keys(X.V).length,'keys')
+						isDev&&console.log('FOX.js: UNLOAD',pathNice,Object.keys(X.V).length,'keys')
 						killObject(X.V);
 					} else if (X.V.length){
-						console.log('FOX.js: UNLOAD',pathNice,X.V.length,'entries');
+						isDev&&console.log('FOX.js: UNLOAD',pathNice,X.V.length,'entries');
 						X.V.forEach(killObject);
 						X.length=0;
 					}
@@ -354,7 +356,7 @@
 				if(willdestroy) clearTimeout(willdestroy);
 				willdestroy = setTimeout(attemptDestroy, (saving||waiting)?5000:1000);
 				abortdestroy=null;
-				console.log('FOX.js: UNLOAD SCHEDULED',pathNice);
+				isDev&&console.log('FOX.js: UNLOAD SCHEDULED',pathNice);
 			},
 
 			isSaving:function(){ return saving || waiting || (willdestroy&&!abortdestroy) }
@@ -370,10 +372,10 @@
 			if(lastMod==X.lastMod && lastSize==X.lastSize)return console.log('FOX.js: unchanged:',path);
 			console.log('FOX.js: reload:',path);
 			if(X.V.constructor === Object){
-				console.log('FOX.js: UNLOAD',pathNice,Object.keys(X.V).length,'keys')
+				isDev&&console.log('FOX.js: UNLOAD',pathNice,Object.keys(X.V).length,'keys')
 				killObject(X.V);
 			} else if (X.V.length){
-				console.log('FOX.js: UNLOAD',pathNice,X.V.length,'entries');
+				isDev&&console.log('FOX.js: UNLOAD',pathNice,X.V.length,'entries');
 				X.V.forEach(killObject);
 				X.length=0;
 			}
