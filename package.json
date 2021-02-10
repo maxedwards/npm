@@ -1,0 +1,25 @@
+{
+  "name": "maxedwards-npm",
+  "version": "1.0.0",
+  "description": "Various node.js libraries by Max Edwards M.Eng., individually packaged up for publication in the npm repo.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maxedwards/npm.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/maxedwards/npm/issues"
+  },
+  "homepage": "https://github.com/maxedwards/npm#readme",
+  "dependencies": {
+    "@maxedwards/ensure-folder": "0.0.1",
+    "@maxedwards/fox": "0.0.2",
+    "@maxedwards/protolibs": "0.0.12",
+    "@maxedwards/stopwatch": "0.0.1"
+  }
+}

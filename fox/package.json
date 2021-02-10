@@ -19,8 +19,8 @@
     "url": "https://github.com/maxedwards/npm/issues"
   },
   "homepage": "https://github.com/maxedwards/npm#readme",
-  "dependencies": {
-    "@maxedwards/ensure-folder": "0.0.1",
-    "@maxedwards/protolibs": "0.0.10"
+  "dependencis": {
+    "@maxedwards/ensure-folder": "^0.0.1",
+    "@maxedwards/protolibs": "^0.0.12"
   }
 }

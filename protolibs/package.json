@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/maxedwards/npm#readme",
   "dependencies": {
-    "@maxedwards/stopwatch": "0.0.1",
+    "@maxedwards/stopwatch": "^0.0.1",
     "terser": "4.6.3"
   },
   "devDependencies": {
