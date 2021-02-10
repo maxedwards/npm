@@ -1,6 +1,6 @@
 {
   "name": "@maxedwards/fox",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "fox.js by Max Edwards",
   "main": "FOX.js",
   "scripts": {
@@ -19,7 +19,7 @@
     "url": "https://github.com/maxedwards/npm/issues"
   },
   "homepage": "https://github.com/maxedwards/npm#readme",
-  "dependencis": {
+  "dependencies": {
     "@maxedwards/ensure-folder": "^0.0.1",
     "@maxedwards/protolibs": "^0.0.12"
   }

@@ -17,9 +17,9 @@
   },
   "homepage": "https://github.com/maxedwards/npm#readme",
   "dependencies": {
-    "@maxedwards/ensure-folder": "0.0.1",
-    "@maxedwards/fox": "0.0.2",
-    "@maxedwards/protolibs": "0.0.12",
-    "@maxedwards/stopwatch": "0.0.1"
+    "@maxedwards/ensure-folder": "^0.0.1",
+    "@maxedwards/fox": "^0.0.3",
+    "@maxedwards/protolibs": "^0.0.12",
+    "@maxedwards/stopwatch": "^0.0.1"
   }
 }
