@@ -1,5 +1,6 @@
 (function(){
 	"use strict";
+	console.log('FOX.js 0.0.3');
 
 	//require('../agnostic/safeBraces.js');
 	//Number._safeBraces.ON('niceBytes')
@@ -53,7 +54,7 @@
 		if(FOXcache[path]){
 			if(FOXcache[path].willDestroy()) {
 				//throw 'FOX.js cannot reuse a file being destroyed!'+path;
-				abortdestroy=true;
+				FOXcache[path].abortDestroy();
 			}
 			console.log('FOX.js: CACHE HIT',path);
 			return FOXcache[path];
@@ -61,7 +62,7 @@
 		var pathNice=`..${path.slice(-40)}`;
 		//if(cache[path]){console.log('FOX cache hit:' + path); return cache[path];}
 		var data=initval;
-		var waiting,saving=false,willdestroy,abortdestroy;//, saveAgain=false;
+		var waiting,saving=false,willdestroy;//,abortdestroy;//, saveAgain=false;
 		var lastMod, lastSize, lastFs;
 		var noCache=true; //X.opts.noCache;
 		opts=opts||{};
@@ -139,8 +140,13 @@
 		var X=FOXcache[path]={
 			opts:opts,
 			lastSize:lastSize, lastMod:lastMod, gzip:isgzip, V:data, 
-			willDestroy:function(){
-				return willdestroy;
+			willDestroy:function(){ return !!willdestroy; },
+			abortDestroy:function(){
+				if(willdestroy){
+					clearTimeout(willdestroy);
+					willdestroy=null;
+					console.log('FOX.js destroy aborted');
+				}
 			},
 			set:function(Vnew){
 				X.V=Vnew; return X;
@@ -327,14 +333,16 @@
 					waiting=setTimeout(attemptSave, saving?5000:1000);
 				});
 			},
+			
 			unload:function(){
 				//delete cache[path];
 				try{delete require.cache[require.resolve(path)];}catch(e){}
 
 				function attemptDestroy(){
+					
 					willdestroy=null;
 					// very naiive!!:
-					if(abortdestroy){abortdestroy=null; console.log('FOX.js destroy attempt aborted'); return;}
+					//if(abortdestroy){abortdestroy=null; console.log('FOX.js destroy attempt aborted'); return;}
 					if(saving||waiting) return willdestroy=setTimeout(attemptDestroy,5000);
 					
 					//return;
@@ -355,18 +363,18 @@
 
 				if(willdestroy) clearTimeout(willdestroy);
 				willdestroy = setTimeout(attemptDestroy, (saving||waiting)?5000:1000);
-				abortdestroy=null;
+				
 				isDev&&console.log('FOX.js: UNLOAD SCHEDULED',pathNice);
 			},
 
-			isSaving:function(){ return saving || waiting || (willdestroy&&!abortdestroy) }
+			isSaving:function(){ return saving || waiting || willdestroy }
 		}
 		X.uncache=X.unload; // historical reasons
 		//if(!noCache)cache[path]=X;
 		X.reloadIfChanged=function(){
 			if(X.willDestroy()) {
 				//throw 'FOX.js cannot reload file being destroyed!'+path;
-				abortdestroy=true;
+				X.abortDestroy();
 			}
 			checkFile();
 			if(lastMod==X.lastMod && lastSize==X.lastSize)return console.log('FOX.js: unchanged:',path);
