@@ -1,6 +1,6 @@
 (function(){
 	"use strict";
-	console.log('FOX.js 0.0.3');
+	console.log('FOX.js 0.0.4');
 
 	//require('../agnostic/safeBraces.js');
 	//Number._safeBraces.ON('niceBytes')
