@@ -4,7 +4,7 @@
 
 	//require('../agnostic/safeBraces.js');
 	//Number._safeBraces.ON('niceBytes')
-	require('@maxedwards/protolibs');
+	if(!Function.$protolibs)require('@maxedwards/protolibs');
 
 	const isDev=process.env.NODE_ENV!='production';
 
@@ -26,29 +26,6 @@
 	const gzipModeDefault = process.env["NODE_ENV"]=='production' ? null : null; // [null, 'auto', true]
 	const gzipThreshDefault = process.env["NODE_ENV"]=='production' ? 1000 : 3400;
 	
-
-	
-
-	// FOX could cache itself, against multiple short-lifecycle usages per any given file.
-	// If a file gets accessed once, FOX could ALWAYS keep a copy of that object and re-use it if
-	// ever requested again. This would enable save-collisions to be avoided across multiple threads,
-	// and across multiple peer-ignorant functions that each cause a save e.g. if a pages.2 application
-	// writes to a file and the pages.2 itself does so after thre request finsihes. NOT GONNA HAPPEN.
-	//
-	// BUT if many hundreds of distinct files get accessed in the lifetime of the
-	// application, RAM usage WILL steadily increase.
-	// Therefore FOX and CAT could only be used on a finite and well-bounded number of files during
-	// an application lifecycle. Bots could be much more liberal than applications with their usage count
-	// due to their short-lived application lifecycles.
-	//
-	// NO SUCH CACHE EXISTS
-	//
-	// FOX will remain uncached because single-threaded save collisions can currently only occur if pages.2 decides to start writing files it shouldn't be after a request lifecycle has just finished.
-	// No applications currently exist that use CAT/FOX whilst running multi-threaded. Long may it remain this way, but if this changes than save-collisions would merely mean a "latest version wins" outcome anyway
-	// So there is NOTHING to stress about and this was just a writing exercise :)
-	//
-
-	// OH HERE WE GO...
 	const FOXcache={};
 	const FOX = module.exports = function(path,initval, opts){
 		if(FOXcache[path]){
