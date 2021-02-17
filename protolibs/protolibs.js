@@ -32,21 +32,21 @@ function mreq(path,core){
         return F
     }
     return function(){
-        /*
-        if(!require.cache[path]){
-            if(!isLive){
-                delete require.cache[path];
-                console.log('protolibs.js DEV reload',path);
-            }
+        
+        if(require.cache[path]){
+        //    if(!isLive){
+        //        delete require.cache[path];
+        //        console.log('protolibs.js DEV reload',path);
+         //   }
         } else {
             console.log('protolibs.js first-time lazy-load',path);
         }
-        */
+        
         let F=require(path);
         if(typeof F!='function')throw 'protolibs.js: NOT A FUNCTION:'+path;
-        if(F.noDevCache && !isLive){
+        if(F.devReload && !isLive){
             delete require.cache[path];
-            console.log('protolibs.js noDevCache:',path);
+            console.log('protolibs.js devReload:',path);
         }
         return F.apply(this,arguments);
     }
