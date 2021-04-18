@@ -15,7 +15,7 @@ module.exports=function(opts){
         if(opts&&opts.username&&opts.password)c.headers.Authorization='Basic '+(opts.username + ":" + opts.password).$btoa();
 
         if(opts&&opts.post&&opts.post.constructor===Object){
-            console.log('POSTing an Object');
+            //console.log('POSTing an Object');
             c.headers["Content-Type"]="application/json";
             c.method='post';
             c.body=JSON.stringify(opts.post);
