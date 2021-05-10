@@ -33,20 +33,14 @@ function mreq(path,core){
     }
     return function(){
         
-        if(require.cache[path]){
-        //    if(!isLive){
-        //        delete require.cache[path];
-        //        console.log('protolibs.js DEV reload',path);
-         //   }
-        } else {
-            console.log('protolibs.js first-time lazy-load',path);
-        }
+        if(optsGlobal.verbose&&!require.cache[path])
+            console.log('protolibs.js is lazy-loading',path);
         
         let F=require(path);
         if(typeof F!='function')throw 'protolibs.js: NOT A FUNCTION:'+path;
         if(F.devReload && !isLive){
             delete require.cache[path];
-            console.log('protolibs.js devReload:',path);
+            console.log('protolibs.js: .devReload triggered UNCACHE of ',path);
         }
         return F.apply(this,arguments);
     }
@@ -54,7 +48,7 @@ function mreq(path,core){
 
 protolibs.initServerside=function(fromDir){
     if(!fromDir || typeof fromDir != 'string') fromDir=p.join(__dirname,'protolibs');
-    if(true || optsGlobal.verbose)console.log('protolibs.js SCANNING',fromDir);
+    if(optsGlobal.verbose)console.log('protolibs.js SCANNING',fromDir);
     let added=0;
     
     let spa;
