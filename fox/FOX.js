@@ -4,7 +4,7 @@
 
 	//require('../agnostic/safeBraces.js');
 	//Number._safeBraces.ON('niceBytes')
-	if(!Function.$protolibs)require('@maxedwards/protolibs');
+	if(!String.$protolibs)require('@maxedwards/protolibs');
 
 	const isDev=process.env.NODE_ENV!='production';
 
