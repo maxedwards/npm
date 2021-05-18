@@ -1,16 +1,16 @@
-const cache=[];
+const processCache={};
 //WITH:String.getJSON
-module.exports=function(to,freshSeconds=60){
+module.exports=function(to,freshSeconds=60,cache=processCache,noisy){
     freshSeconds=Math.max(parseFloat(freshSeconds)||0,60);
     return new Promise(async (ok,fail)=>{
         let slug=`${this.toString()}-${to}`;
         let now=new Date().valueOf()/1000, staleBefore=now-freshSeconds;
         if(cache[slug]&&(cache[slug].t>=staleBefore))  return ok(cache[slug].v);
-        console.log('String.exchangeRate is calling API..');
+        if(noisy)console.log('String.$exchangeRate calling api.cryptonator.com for',slug);
         `https://api.cryptonator.com/api/ticker/${slug}`.$getJSON()
             .then(x=>{
                 if(!x.success) throw 'API failure:'+x.error;
-                x=cache[slug]={t:now,v:x.ticker.price};
+                x=cache[slug]={t:now,v:parseFloat(x.ticker.price)};
                 ok(x.v);
             })
             .catch(fail);
