@@ -1,7 +1,7 @@
 const processCache={};
 //WITH:String.getJSON
 module.exports=function(to,freshSeconds=60,cache=processCache,noisy){
-    freshSeconds=Math.max(parseFloat(freshSeconds)||0,60);
+    freshSeconds=Math.max(parseFloat(freshSeconds)||0,30);
     return new Promise(async (ok,fail)=>{
         let slug=`${this.toString()}-${to}`;
         let now=new Date().valueOf()/1000, staleBefore=now-freshSeconds;
