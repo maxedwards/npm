@@ -7,7 +7,7 @@ module.exports=function(to,freshSeconds=60,cache=processCache,noisy){
         let now=new Date().valueOf()/1000, staleBefore=now-freshSeconds;
         if(cache[slug]&&(cache[slug].t>=staleBefore))  return ok(cache[slug].v);
 	let slugr=`${to}-${this.toString()}`;
-        if(cache[slugr]&&(cache[slugr].t>=staleBefore))  return ok(1/cache[slug].v);
+        if(cache[slugr]&&(cache[slugr].t>=staleBefore))  return ok(1/cache[slugr].v);
         if(noisy)console.log('String.$exchangeRate calling api.cryptonator.com for',slug);
         `https://api.cryptonator.com/api/ticker/${slug}`.$getJSON()
             .then(x=>{
