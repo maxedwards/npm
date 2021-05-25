@@ -1,6 +1,7 @@
 const processCache={};
 //WITH:String.getJSON
-module.exports=function(to,freshSeconds=60,cache=processCache,noisy){
+module.exports=function(to,freshSeconds=60,cache,noisy){
+    cache=cache||processCache;
     freshSeconds=Math.max(parseFloat(freshSeconds)||0,30);
     return new Promise(async (ok,fail)=>{
         let slug=`${this.toString()}-${to}`;
