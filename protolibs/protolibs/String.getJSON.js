@@ -1,6 +1,6 @@
 //WITH:Class.fetch,String.btoa
 //TODO: get Function.$fetch working and then strip out the node-only stuff
-module.exports=function(opts){
+module.exports=function(opts={}){
     let url=this.toString();
     return new Promise((ok,fail)=>{
         let F=(typeof fetch=='undefined')?require('node-fetch'):fetch;
@@ -10,11 +10,12 @@ module.exports=function(opts){
         let c={headers:{
             //'Content-Type': 'application/x-www-form-urlencoded'
             'Accept': 'application/json',//, text/plain, */*'
+            ...opts.headers
         }};
 
-        if(opts&&opts.username&&opts.password)c.headers.Authorization='Basic '+(opts.username + ":" + opts.password).$btoa();
+        if(opts.username&&opts.password)c.headers.Authorization='Basic '+(opts.username + ":" + opts.password).$btoa();
 
-        if(opts&&opts.post&&opts.post.constructor===Object){
+        if(opts.post&&opts.post.constructor===Object){
             //console.log('POSTing an Object');
             c.headers["Content-Type"]="application/json";
             c.method='post';
@@ -24,7 +25,9 @@ module.exports=function(opts){
         //console.log('config',c);
 
         F(url, c)
-                .then(response => response.json())
+                .then(response => response.json().catch(e=>{
+                    throw 'JSON failure for:'+JSON.stringify(response)+':'+e
+                }))
                 .then(json => ok(json))
                 .catch(fail);
         }
