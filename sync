@@ -1,2 +1,6 @@
-./pull
-./push
+git pull origin main
+git add --all
+git commit -am "$(whoami)@$(hostname):$(date)"
+git push origin main
+git gc --auto
+
