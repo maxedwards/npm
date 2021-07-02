@@ -1,4 +1,4 @@
-const types=['Object','Date','Array','String','Number','Boolean'];
+const types=['Object','Date','Array','String','Number','Boolean','RegExp'];
 const alltypes=types.concat(['Class']);
 const corelibs=require('./protolibs/__corelibs.json');
 const stopwatch=require('@maxedwards/stopwatch');
