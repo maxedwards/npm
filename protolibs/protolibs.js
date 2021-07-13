@@ -1,3 +1,4 @@
+console.log('@maxedwards/protolibs',require('./package.json').version,'installed in',__dirname);
 const types=['Object','Date','Array','String','Number','Boolean','RegExp'];
 const alltypes=types.concat(['Class']);
 const corelibs=require('./protolibs/__corelibs.json');

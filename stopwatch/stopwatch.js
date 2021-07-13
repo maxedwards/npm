@@ -1,4 +1,6 @@
-//WARNING prototype pollution, will be fixed asap
+console.log('@maxedwards/stopwatch',require('./package.json').version,'installed in',__dirname);
+
+//WARNING prototype pollution must be fixed asap
 Array.prototype.tabulate=function(colsize){
 	var r='',buf='';
 	this.forEach(function(col){

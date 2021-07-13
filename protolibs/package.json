@@ -1,6 +1,6 @@
 {
   "name": "@maxedwards/protolibs",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "description": "protolibs.js by Max Edwards, a modular on-demand library of helper functions & classes, shareable between server and browser",
   "main": "protolibs.js",
   "scripts": {

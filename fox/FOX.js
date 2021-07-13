@@ -1,6 +1,7 @@
 (function(){
 	"use strict";
-	console.log('FOX.js '+require('./package.json').version);
+	console.log('@maxedwards/fox [FOX.js]',require('./package.json').version,'installed in',__dirname);
+	//console.log('FOX.js '+require('./package.json').version);
 
 	//require('../agnostic/safeBraces.js');
 	//Number._safeBraces.ON('niceBytes')
