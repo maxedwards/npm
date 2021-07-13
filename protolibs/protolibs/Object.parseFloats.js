@@ -1,4 +1,4 @@
-const rxFloat=/^\d+(\.\d+)?$/;
+const rxFloat=/^-?\d+(\.\d+)?$/;
 // keep depth low so that self-referencing objects don't waste CPU on constantly re-parsing themselves
 module.exports=function(depth=5){
     let O=this;
