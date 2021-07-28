@@ -1,5 +1,6 @@
 String.currency_symbols = {
     'USD': '$', // US Dollar
+    'USDT': '₮$', //USDT Tether
     'AUD':	'A$',
     'CAD':	'C$',
     'HKD':	'HK$',
