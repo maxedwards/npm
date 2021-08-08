@@ -1,6 +1,6 @@
-module.exports=function(x){
+module.exports=function(){
     let n=Array.from(this);
-    n.$pushNew(x);
+    Array.from(arguments).map(x=>n.$pushNew(x));
     return n;
 }
 //WITH:Array.$pushNew

@@ -11,4 +11,4 @@ module.exports=function({cols,rows,groups}){
 }
 </table>`
 }
-module.exports.devReload=true;
+//module.exports.devReload=true;
