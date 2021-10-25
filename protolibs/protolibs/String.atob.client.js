@@ -1,1 +1,0 @@
-module.exports=function(){return atob(this.String());};

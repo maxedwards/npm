@@ -1,1 +1,0 @@
-module.exports=function(indent){return JSON.stringify(this,null,parseInt(indent));}
